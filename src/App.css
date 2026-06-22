@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #74ebd5,
+    #9face6
+  );
+  min-height: 100vh;
+}
+
+
+.container {
+  text-align: center;
+  padding-top: 80px;
+}
+
+
+h1 {
+  color: white;
+  font-size: 40px;
+}
+
+
+.search input {
+  padding: 12px;
+  width: 250px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+
+button {
+  padding: 12px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+
+button:hover {
+  background: #0056b3;
+}
+
+
+.card {
+  background: white;
+  width: 300px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px gray;
+}
+
+
+.error {
+  color: red;
+}
