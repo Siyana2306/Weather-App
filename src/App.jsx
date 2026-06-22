@@ -9,7 +9,7 @@ function App() {
 
   const getWeather = async () => {
     if (!city.trim()) {
-      setError("Please enter a city name");
+      setError("Enter a city name");
       return;
     }
 
@@ -18,7 +18,7 @@ function App() {
     setWeather(null);
 
     try {
-      // Get latitude and longitude using city name
+      // Get city coordinates
       const geoResponse = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
       );
@@ -29,38 +29,26 @@ function App() {
         throw new Error("City not found");
       }
 
-      const {
-        latitude,
-        longitude,
-        name
-      } = geoData.results[0];
+      const { latitude, longitude, name } = geoData.results[0];
 
-
-      // Get weather data
+      // Get weather details
       const weatherResponse = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m&timezone=auto`
       );
 
       const weatherData = await weatherResponse.json();
 
-const localTime = new Date(
-  weatherData.current.time
-).toLocaleString("en-IN", {
-  timeZone: "Asia/Kolkata",
-  dateStyle: "medium",
-  timeStyle: "short"
-});
+      const currentTime = new Date().toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      });
 
-const currentTime = new Date().toLocaleString("en-IN");
-
-setWeather({
-  city: name,
-  temperature: weatherData.current.temperature_2m,
-  windSpeed: weatherData.current.wind_speed_10m,
-  time: currentTime
-});
-
-
+      setWeather({
+        city: name,
+        temperature: weatherData.current.temperature_2m,
+        windSpeed: weatherData.current.wind_speed_10m,
+        time: currentTime,
+      });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -68,67 +56,43 @@ setWeather({
     }
   };
 
-
   return (
     <div className="container">
+      <h1>City Weather Finder 🌦️</h1>
 
-      <h1>Weather Search 🌤️</h1>
-
-
-      <div className="search">
-
+      <div className="search-box">
         <input
           type="text"
-          placeholder="Enter City Name"
+          placeholder="Search for a city..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              getWeather();
+            }
+          }}
         />
 
-
         <button onClick={getWeather}>
-          Search
+          Get Weather
         </button>
-
       </div>
 
+      {loading && <h3>Fetching weather details...</h3>}
 
-
-      {loading && (
-        <h3>Loading...</h3>
-      )}
-
-
-
-      {error && (
-        <h3 className="error">
-          {error}
-        </h3>
-      )}
-
-
+      {error && <h3 className="error">{error}</h3>}
 
       {weather && (
-
         <div className="card">
-
           <h2>{weather.city}</h2>
 
-          <p>
-            🌡 Temperature: {weather.temperature} °C
-          </p>
+          <p>🌡️ Temperature: {weather.temperature} °C</p>
 
-          <p>
-            💨 Wind Speed: {weather.windSpeed} km/h
-          </p>
+          <p>💨 Wind Speed: {weather.windSpeed} km/h</p>
 
-          <p>
-            🕒 Time: {weather.time}
-          </p>
-
+          <p>🕒 Time: {weather.time}</p>
         </div>
-
       )}
-
     </div>
   );
 }

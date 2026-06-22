@@ -3,60 +3,56 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(
     135deg,
-    #74ebd5,
-    #9face6
+    #2c3e50,
+    #8e44ad
   );
   min-height: 100vh;
 }
-
 
 .container {
   text-align: center;
   padding-top: 80px;
 }
 
-
 h1 {
-  color: white;
+  color: #f8f9fa;
   font-size: 40px;
 }
-
 
 .search input {
   padding: 12px;
   width: 250px;
-  border-radius: 8px;
-  border: none;
+  border-radius: 10px;
+  border: 2px solid #dcd6f7;
   font-size: 16px;
+  outline: none;
 }
-
 
 button {
   padding: 12px 20px;
   margin-left: 10px;
   border: none;
-  border-radius: 8px;
-  background: #007bff;
+  border-radius: 10px;
+  background: #ff6b81;
   color: white;
   cursor: pointer;
+  font-weight: bold;
 }
-
 
 button:hover {
-  background: #0056b3;
+  background: #ff4757;
 }
 
-
 .card {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
   width: 300px;
   margin: 30px auto;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px gray;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-
 .error {
-  color: red;
+  color: #ffcccc;
+  font-weight: bold;
 }
